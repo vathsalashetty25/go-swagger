@@ -9,7 +9,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-      GOPATH: /home/runner/work/go-swagger
+      GOPATH: /home/runner/work/go-swagger/go-swagger
     steps:
       - uses: actions/setup-go@v1
         with:
@@ -29,7 +29,8 @@ jobs:
       # build
       - run: |
           docker build -t swagger .
-          
+          make image DEV_IMAGE=true DOCKER_PUSH=false IMAGE_NAMESPACE=docker.pkg.github.com/vathsalashetty25/repo-for-images IMAGE_TAG=${{ steps.image.outputs.tag }}
+        working-directory: ./src/github.com/vathsalashetty25/go-swagger
       # publish
       - run: |
           docker login docker.pkg.github.com --username $USERNAME --password $PASSWORD

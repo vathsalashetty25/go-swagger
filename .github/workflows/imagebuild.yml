@@ -9,7 +9,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-      GOPATH: /home/runner/work/go-swagger/go-swagger
+      GOPATH: /home/runner/work/go-swagger
     steps:
       - uses: actions/setup-go@v1
         with:

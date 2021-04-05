@@ -9,7 +9,7 @@ RUN apk --no-cache add ca-certificates shared-mime-info mailcap git build-base &
   go get -u github.com/jessevdk/go-flags &&\
   go get -u golang.org/x/net/context/ctxhttp
 
-ADD ./dist/swagger-musl /usr/bin/swagger
+ADD ./deploybuild/swagger-musl /usr/bin/swagger
 ADD ./deploybuild/templates/ /templates/contrib/
 
 ENTRYPOINT ["/usr/bin/swagger"]

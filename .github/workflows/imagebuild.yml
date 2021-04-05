@@ -1,0 +1,40 @@
+name: Image
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      GOPATH: /home/runner/work/argo-cd/argo-cd
+    steps:
+      - uses: actions/setup-go@v1
+        with:
+          go-version: '1.14.12'
+      - uses: actions/checkout@master
+        with:
+          path: src/github.com/vathsalashetty25/argo-cd
+      - uses: crazy-max/ghaction-docker-buildx@v3.2.0
+        with:
+          buildx-version: v0.4.1
+       
+
+       # get image tag
+      - run: echo ::set-output name=tag::$(cat ./VERSION)-${GITHUB_SHA::8}
+        working-directory: ./src/github.com/vathsalashetty25/argo-cd
+        id: image       
+      # build
+      - run: |
+          docker build -t argocd .
+          make image DEV_IMAGE=true DOCKER_PUSH=false IMAGE_NAMESPACE=docker.pkg.github.com/vathsalashetty25/repo-for-images IMAGE_TAG=${{ steps.image.outputs.tag }}
+        working-directory: ./src/github.com/vathsalashetty25/argo-cd
+      # publish
+      - run: |
+          docker login docker.pkg.github.com --username $USERNAME --password $PASSWORD
+          docker push docker.pkg.github.com/vathsalashetty25/repo-for-images/argocd:${{ steps.image.outputs.tag }}
+        env:
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.TOKEN }}

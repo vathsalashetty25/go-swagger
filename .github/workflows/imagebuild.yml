@@ -29,7 +29,7 @@ jobs:
       # build
       - run: |
           docker build -t swagger .
-          make image DEV_IMAGE=true DOCKER_PUSH=false IMAGE_NAMESPACE=https://github.com/vathsalashetty25/repo-for-images IMAGE_TAG=${{ steps.image.outputs.tag }}
+          make image DEV_IMAGE=true DOCKER_PUSH=false IMAGE_NAMESPACE=docker.pkg.github.com/vathsalashetty25/repo-for-images IMAGE_TAG=${{ steps.image.outputs.tag }}
         working-directory: ./src/github.com/vathsalashetty25/go-swagger
       # publish
       - run: |

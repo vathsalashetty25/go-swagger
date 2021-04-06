@@ -36,7 +36,7 @@ jobs:
       # publish
       - run: |
           docker login docker.pkg.github.com --username $USERNAME --password $PASSWORD
-          docker push docker.pkg.github.com/vathsalashetty25/repo-for-images/swagger:${{ steps.image.outputs.tag }}
+          docker push docker.pkg.github.com/vathsalashetty25/repo-for-images/swagger
         env:
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.TOKEN }}

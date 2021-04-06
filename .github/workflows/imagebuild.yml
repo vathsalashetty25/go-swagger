@@ -29,6 +29,7 @@ jobs:
       # build
       - run: |
           
+          docker images
           docker build -t swagger .
           docker tag swagger docker.pkg.github.com/vathsalashetty25/repo-for-images/swagger:latest
           

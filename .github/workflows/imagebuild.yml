@@ -30,7 +30,7 @@ jobs:
       - run: |
           
           docker build -t swagger .
-          docker tag nginx docker.pkg.github.com/$USERNAME/repo-for-images/swagger:latest
+          docker tag swagger docker.pkg.github.com/$USERNAME/repo-for-images/swagger:latest
           docker push docker.pkg.github.com/$USERNAME/repo-for-images/swagger
         working-directory: ./src/github.com/vathsalashetty25/go-swagger
       # publish

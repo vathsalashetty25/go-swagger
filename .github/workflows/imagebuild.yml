@@ -28,8 +28,10 @@ jobs:
         id: image       
       # build
       - run: |
-          docker build -f Dockerfile .
-          make image DEV_IMAGE=true DOCKER_PUSH=false IMAGE_NAMESPACE=docker.pkg.github.com/vathsalashetty25/repo-for-images IMAGE_TAG=${{ steps.image.outputs.tag }}
+          
+          docker build -t swagger .
+          docker tag nginx docker.pkg.github.com/$USERNAME/repo-for-images/swagger:latest
+          docker push docker.pkg.github.com/$USERNAME/repo-for-images/swagger
         working-directory: ./src/github.com/vathsalashetty25/go-swagger
       # publish
       - run: |

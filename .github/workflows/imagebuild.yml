@@ -31,13 +31,13 @@ jobs:
           
           docker images
           docker build -t swagger .
-          docker tag swagger docker.pkg.github.com/vathsalashetty25/repo-for-images/swagger:latest
+          docker tag swagger docker.pkg.github.com/vathsalashetty25/repo-for-images/swagger:latest IMAGE_TAG=${{ steps.image.outputs.tag }}
           
         working-directory: ./src/github.com/vathsalashetty25/go-swagger
       # publish
       - run: |
           docker login docker.pkg.github.com --username $USERNAME --password $PASSWORD
-          docker push docker.pkg.github.com/vathsalashetty25/repo-for-images/swagger
+          docker push docker.pkg.github.com/vathsalashetty25/repo-for-images/swagger:${{ steps.image.outputs.tag }}
         env:
           USERNAME: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.TOKEN }}
